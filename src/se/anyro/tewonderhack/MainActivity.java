@@ -37,4 +37,16 @@ public class MainActivity extends Activity {
 
         setContentView(this.mGameView);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMainThread.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMainThread.stop();
+    }
 }

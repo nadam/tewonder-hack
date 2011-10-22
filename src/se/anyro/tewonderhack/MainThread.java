@@ -12,8 +12,10 @@ public class MainThread implements Runnable {
     private Thread mThread;
     private boolean mRunning;
 
-    public MainThread() {
+    // mThreadSuspended is increased each time we pause and decreased when we resume
+    private volatile int mThreadSuspended = 1;
 
+    public MainThread() {
     }
 
     public void addSubSystem(SubSystem subSystem) {
@@ -24,17 +26,32 @@ public class MainThread implements Runnable {
         if (mThread == null) {
             mThread = new Thread(this, "GameThread");
             mThread.start();
+        } else {
+            synchronized (this) {
+                --mThreadSuspended;
+                notify();
+            }
         }
     }
 
     public void stop() {
-
+        synchronized (this) {
+            ++mThreadSuspended;
+        }
     }
 
     @Override
     public void run() {
         mRunning = true;
         while (mRunning) {
+            synchronized (this) {
+                while (mThreadSuspended > 0) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                    }
+                }
+            }
             for (SubSystem system : mSubSystems) {
                 system.processOneGameTick(0);
             }
