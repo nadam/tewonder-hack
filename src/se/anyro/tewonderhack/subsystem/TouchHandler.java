@@ -1,21 +1,21 @@
 package se.anyro.tewonderhack.subsystem;
 
-import java.util.List;
+import java.util.Collection;
 
+import se.anyro.tewonderhack.components.RenderColorRect;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
 import com.wikidot.entitysystems.rdbmsbeta.EntityManager;
 import com.wikidot.entitysystems.rdbmsbeta.SubSystem;
-import com.wikidot.entitysystems.rdbmsbeta.examplecomponents.Position;
 
 public class TouchHandler implements SubSystem {
-    
+
     private volatile boolean mTouched = false;
-    
+
     EntityManager mEntityManager;
-    
+
     private class TouchListener implements OnTouchListener {
 
         @Override
@@ -31,22 +31,22 @@ public class TouchHandler implements SubSystem {
             }
             return false;
         }
-        
+
     }
-    
+
     public TouchHandler(EntityManager entityManager, View view) {
         mEntityManager = entityManager;
         TouchListener touchListener = new TouchListener();
         view.setOnTouchListener(touchListener);
     }
-    
+
     @Override
     public void processOneGameTick(long lastFrameTime) {
         if (mTouched) {
-            List<Position> positions = mEntityManager.getAllComponentsOfType(Position.class);
-            for (Position pos : positions) {
-                --pos.y;
+            Collection<RenderColorRect> rects = mEntityManager.getAllComponentsOfType(RenderColorRect.class);
+            for (RenderColorRect pos : rects) {
+                ++pos.y;
             }
         }
-    }    
+    }
 }

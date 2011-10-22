@@ -9,7 +9,7 @@ public class MainThread implements Runnable {
 
     private List<SubSystem> mSubSystems = new ArrayList<SubSystem>();
 
-    Thread mThread;
+    private Thread mThread;
     private boolean mRunning;
 
     public MainThread() {
