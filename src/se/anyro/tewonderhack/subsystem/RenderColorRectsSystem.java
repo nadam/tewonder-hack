@@ -23,19 +23,24 @@ public class RenderColorRectsSystem implements SubSystem {
 	@Override
 	public void processOneGameTick(long lastFrameTime) {
 
-		List<RenderColorRect> renderables = em.getAllComponentsOfType(RenderColorRect.class);
-
 		if (!view.available)
 			return;
 
+		Canvas canvas = view.holder.lockCanvas();
+		if (canvas == null)
+			return;
+
+		List<RenderColorRect> renderables = em.getAllComponentsOfType(RenderColorRect.class);
+
 		Paint paint = new Paint();
 		paint.setColor(0xff0000);
-		Canvas canvas = view.holder.lockCanvas();
+
+		canvas.drawColor(0x000000);
 
 		for (RenderColorRect comp : renderables) {
-			canvas.drawColor(0x000000);
 			canvas.drawRect(comp.x, comp.y, (comp.x + comp.width), (comp.y + comp.height), paint);
 		}
 
+		view.holder.unlockCanvasAndPost(canvas);
 	}
 }
