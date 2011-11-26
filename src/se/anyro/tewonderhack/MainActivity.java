@@ -5,6 +5,7 @@ import se.anyro.tewonderhack.subsystem.RenderColorRectsSystem;
 import se.anyro.tewonderhack.subsystem.TouchHandler;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.wikidot.entitysystems.rdbmsbeta.EntityManager;
 
@@ -42,11 +43,13 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         mMainThread.start();
+        Log.d("adam", "Activity   resumed");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mMainThread.stop();
+        Log.d("adam", "Activity   paused");
     }
 }

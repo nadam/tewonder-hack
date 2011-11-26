@@ -13,7 +13,7 @@ public class MainThread implements Runnable {
     private boolean mRunning;
 
     // mThreadSuspended is increased each time we pause and decreased when we resume
-    private volatile int mThreadSuspended = 1;
+    private int mThreadSuspended = 1;
 
     public MainThread() {
     }

@@ -1,7 +1,6 @@
 package se.anyro.tewonderhack;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -24,7 +23,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.d("tommy", "Surface created");
         mThread.start();
     }
 
@@ -34,8 +32,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         surfaceWidth = width;
         surfaceHeight = height;
         this.holder = holder;
-
-        Log.d("tommy", "Surface changed w=" + width + ", h=" + height);
     }
 
     @Override
@@ -46,7 +42,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         holder = null;
 
         mThread.stop();
-        Log.d("tommy", "Surface destroyed");
     }
 
 }
