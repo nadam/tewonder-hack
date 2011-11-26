@@ -12,16 +12,18 @@ import se.anyro.tewonderhack.components.SpatialComponent;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.wikidot.entitysystems.rdbmsbeta.EntityManager;
 import com.wikidot.entitysystems.rdbmsbeta.SubSystem;
 
 public class RenderScaledDrawableSystem implements SubSystem {
 
+	private boolean _clearScreen;
 	private EntityManager _entityManager;
 	private GameView _gameView;
 
-	private float _scaleFactor = 6f;
+	private float _scaleFactor = -1f;
 
 	private Paint _paint;
 	private Matrix _matrix;
@@ -32,6 +34,7 @@ public class RenderScaledDrawableSystem implements SubSystem {
 		_paint = new Paint();
 		_paint.setFilterBitmap(false);
 		_matrix = new Matrix();
+
 	}
 
 	@Override
@@ -39,10 +42,20 @@ public class RenderScaledDrawableSystem implements SubSystem {
 		if (!_gameView.available)
 			return;
 
+		if (_scaleFactor < 0) {
+			_scaleFactor = (float) Math.floor(_gameView.surfaceHeight / 120);
+
+			Log.d("tommy", "Scale factor is " + _scaleFactor);
+		}
+
 		Canvas canvas = _gameView.holder.lockCanvas();
 		if (canvas != null) {
 
-			//canvas.drawColor(0xff000000);
+			if (_clearScreen) {
+				canvas.drawColor(0xff000000);
+				_clearScreen = false;
+			}
+
 			Set<UUID> renderables = _entityManager.getAllEntitiesPossessingComponent(LayerIndexComponent.class);
 
 			ArrayList<UUID> layer0 = new ArrayList<UUID>();
@@ -90,6 +103,11 @@ public class RenderScaledDrawableSystem implements SubSystem {
 
 			_gameView.holder.unlockCanvasAndPost(canvas);
 		}
+	}
+
+	public void setScaleFactor(float scaleFactor) {
+		_scaleFactor = scaleFactor;
+		_clearScreen = true;
 	}
 
 }
