@@ -11,6 +11,14 @@ public class SpatialComponent implements Component {
 	public float width = 0f;
 	public float height = 0f;
 
+	public float getRight() {
+		return x + width;
+	}
+
+	public float getBottom() {
+		return y + height;
+	}
+
 	public SpatialComponent(float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;

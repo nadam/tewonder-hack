@@ -27,7 +27,7 @@ public class EntityFactory {
 
 		mEntityManager.addComponent(entity, new LayerIndexComponent(layerIndex));
 		mEntityManager.addComponent(entity, new ColorComponent(color));
-		mEntityManager.addComponent(entity, new SpatialComponent(x, y, 100f, 100f));
+		mEntityManager.addComponent(entity, new SpatialComponent(x, y, 50f, 50f));
 
 		double rndX = Math.random() * 5f + 1f;
 		double rndY = Math.random() * 5f + 1f;

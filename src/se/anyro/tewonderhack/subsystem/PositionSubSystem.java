@@ -37,8 +37,8 @@ public class PositionSubSystem implements SubSystem {
 				posComponent.y += speedComponent.speedY;
 
 				if (mGameView.available) {
-					int w = mGameView.surfaceWidth;
-					int h = mGameView.surfaceHeight;
+					int w = 200;
+					int h = 120;
 					if (posComponent.x + posComponent.width > w) {
 						posComponent.x = w - posComponent.width;
 						speedComponent.speedX = -speedComponent.speedX;

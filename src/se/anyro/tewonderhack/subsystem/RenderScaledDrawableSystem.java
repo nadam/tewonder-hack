@@ -42,6 +42,7 @@ public class RenderScaledDrawableSystem implements SubSystem {
 		Canvas canvas = _gameView.holder.lockCanvas();
 		if (canvas != null) {
 
+			//canvas.drawColor(0xff000000);
 			Set<UUID> renderables = _entityManager.getAllEntitiesPossessingComponent(LayerIndexComponent.class);
 
 			ArrayList<UUID> layer0 = new ArrayList<UUID>();
@@ -64,7 +65,9 @@ public class RenderScaledDrawableSystem implements SubSystem {
 			allLayers.addAll(layer2);
 
 			_matrix = new Matrix();
-			_matrix.setScale(_scaleFactor, _scaleFactor);
+			//_matrix.setScale(_scaleFactor, _scaleFactor);
+
+			canvas.scale(_scaleFactor, _scaleFactor);
 
 			for (UUID renderable : allLayers) {
 				SpatialComponent posComponent = _entityManager.getComponent(renderable, SpatialComponent.class);
@@ -81,7 +84,7 @@ public class RenderScaledDrawableSystem implements SubSystem {
 					//_matrix.setTranslate(posComponent.x, posComponent.y);
 					canvas.drawBitmap(bmpComponent.bitmap, _matrix, _paint);
 				} else if (colComponent != null) {
-					canvas.drawRect(posComponent.x, posComponent.y, posComponent.width, posComponent.height, colComponent.paint);
+					canvas.drawRect(posComponent.x, posComponent.y, posComponent.getRight(), posComponent.getBottom(), colComponent.paint);
 				}
 			}
 
