@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import se.anyro.tewonderhack.GameView;
-import se.anyro.tewonderhack.components.RenderColorRect;
+import se.anyro.tewonderhack.components.SpatialComponent;
 import se.anyro.tewonderhack.components.SpeedComponent;
 import se.anyro.tewonderhack.components.TouchComponent;
 
@@ -27,11 +27,11 @@ public class PositionSubSystem implements SubSystem {
 
 		if (touch.isTouching) {
 			// Move each component
-			Set<UUID> movables = mEntityManager.getAllEntitiesPossessingComponent(RenderColorRect.class);
+			Set<UUID> movables = mEntityManager.getAllEntitiesPossessingComponent(SpeedComponent.class);
 			for (UUID entity : movables) {
 
 				SpeedComponent speedComponent = mEntityManager.getComponent(entity, SpeedComponent.class);
-				RenderColorRect posComponent = mEntityManager.getComponent(entity, RenderColorRect.class);
+				SpatialComponent posComponent = mEntityManager.getComponent(entity, SpatialComponent.class);
 
 				posComponent.x += speedComponent.speedX;
 				posComponent.y += speedComponent.speedY;
