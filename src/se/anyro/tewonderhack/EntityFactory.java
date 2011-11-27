@@ -16,40 +16,40 @@ import com.wikidot.entitysystems.rdbmsbeta.EntityManager;
 
 public class EntityFactory {
 
-	private EntityManager mEntityManager;
+    private EntityManager mEntityManager;
 
-	public EntityFactory(EntityManager entityManager) {
-		mEntityManager = entityManager;
-	}
+    public EntityFactory(EntityManager entityManager) {
+        mEntityManager = entityManager;
+    }
 
-	public UUID createColorRect(float x, float y, int color, int layerIndex) {
-		UUID entity = mEntityManager.createEntity();
+    public UUID createColorRect(float x, float y, int color, int layerIndex) {
+        UUID entity = mEntityManager.createEntity();
 
-		mEntityManager.addComponent(entity, new LayerIndexComponent(layerIndex));
-		mEntityManager.addComponent(entity, new ColorComponent(color));
-		mEntityManager.addComponent(entity, new SpatialComponent(x, y, 50f, 50f));
+        mEntityManager.addComponent(entity, new LayerIndexComponent(layerIndex));
+        mEntityManager.addComponent(entity, new ColorComponent(color));
+        mEntityManager.addComponent(entity, new SpatialComponent(x, y, 30f, 30f));
 
-		double rndX = Math.random() * 5f + 1f;
-		double rndY = Math.random() * 5f + 1f;
+        double rndX = Math.random() * 5f + 1f;
+        double rndY = Math.random() * 5f + 1f;
 
-		mEntityManager.addComponent(entity, new SpeedComponent((float) rndX, (float) rndY));
-		return entity;
-	}
+        mEntityManager.addComponent(entity, new SpeedComponent((float) rndX, (float) rndY));
+        return entity;
+    }
 
-	public UUID createScalableBitmapEntity(Drawable drawable, int layerIndex) {
-		UUID entity = mEntityManager.createEntity();
+    public UUID createScalableBitmapEntity(Drawable drawable, int layerIndex) {
+        UUID entity = mEntityManager.createEntity();
 
-		Bitmap bmp = ((BitmapDrawable) drawable).getBitmap();
+        Bitmap bmp = ((BitmapDrawable) drawable).getBitmap();
 
-		mEntityManager.addComponent(entity, new SpatialComponent(0f, 0f));
-		mEntityManager.addComponent(entity, new BitmapComponent(bmp));
-		mEntityManager.addComponent(entity, new LayerIndexComponent(layerIndex));
-		return entity;
-	}
+        mEntityManager.addComponent(entity, new SpatialComponent(0f, 0f));
+        mEntityManager.addComponent(entity, new BitmapComponent(bmp));
+        mEntityManager.addComponent(entity, new LayerIndexComponent(layerIndex));
+        return entity;
+    }
 
-	public UUID createSystemEntity() {
-		UUID entity = mEntityManager.createEntity();
-		mEntityManager.addComponent(entity, new TouchComponent());
-		return entity;
-	}
+    public UUID createSystemEntity() {
+        UUID entity = mEntityManager.createEntity();
+        mEntityManager.addComponent(entity, new TouchComponent());
+        return entity;
+    }
 }
