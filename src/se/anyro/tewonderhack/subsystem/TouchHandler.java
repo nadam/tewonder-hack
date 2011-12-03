@@ -12,41 +12,41 @@ import com.wikidot.entitysystems.rdbmsbeta.SubSystem;
 
 public class TouchHandler implements SubSystem {
 
-	private volatile boolean mTouched = false;
+    private volatile boolean mTouched = false;
 
-	EntityManager mEntityManager;
+    private EntityManager mEntityManager;
 
-	private class TouchListener implements OnTouchListener {
+    private class TouchListener implements OnTouchListener {
 
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			switch (event.getAction()) {
-			case MotionEvent.ACTION_DOWN:
-				mTouched = true;
-				return true;
-			case MotionEvent.ACTION_UP:
-			case MotionEvent.ACTION_CANCEL:
-				mTouched = false;
-				return true;
-			}
-			return false;
-		}
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mTouched = true;
+                return true;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                mTouched = false;
+                return true;
+            }
+            return false;
+        }
 
-	}
+    }
 
-	public TouchHandler(EntityManager entityManager, View view) {
-		mEntityManager = entityManager;
-		TouchListener touchListener = new TouchListener();
-		view.setOnTouchListener(touchListener);
-	}
+    public TouchHandler(EntityManager entityManager, View view) {
+        mEntityManager = entityManager;
+        TouchListener touchListener = new TouchListener();
+        view.setOnTouchListener(touchListener);
+    }
 
-	@Override
-	public void processOneGameTick(long lastFrameTime) {
+    @Override
+    public void processOneGameTick(long lastFrameTime) {
 
-		Collection<TouchComponent> touchComponents = mEntityManager.getAllComponentsOfType(TouchComponent.class);
+        Collection<TouchComponent> touchComponents = mEntityManager.getAllComponentsOfType(TouchComponent.class);
 
-		for (TouchComponent touch : touchComponents) {
-			touch.isTouching = mTouched;
-		}
-	}
+        for (TouchComponent touch : touchComponents) {
+            touch.isTouching = mTouched;
+        }
+    }
 }

@@ -9,7 +9,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public int surfaceWidth = -1;
     public int surfaceHeight = -1;
     public boolean available = false;
-    public SurfaceHolder holder = null;
 
     private MainThread mThread;
 
@@ -31,7 +30,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         available = true;
         surfaceWidth = width;
         surfaceHeight = height;
-        this.holder = holder;
     }
 
     @Override
